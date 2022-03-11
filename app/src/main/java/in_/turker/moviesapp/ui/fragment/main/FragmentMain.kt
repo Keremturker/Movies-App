@@ -77,9 +77,9 @@ class FragmentMain : BaseFragment<FragmentMainBinding, MainVM>() {
         })
     }
 
-    private fun addIndicators() {
+    private fun addIndicators(dotCount: Int) {
         binding.llIndicator.removeAllViews()
-        for (i in 1..sliderItemCount) {
+        for (i in 1..dotCount) {
             val view = ImageView(context)
             view.setImageResource(R.drawable.passive_dot)
             binding.llIndicator.addView(view)
@@ -114,12 +114,17 @@ class FragmentMain : BaseFragment<FragmentMainBinding, MainVM>() {
 
                     ApiState.Loading -> {}
 
-                    is ApiState.Failure -> {}
+                    is ApiState.Failure -> {
+                        binding.viewPager.visibleIf(false)
+                    }
 
                     is ApiState.Success -> {
-                        addIndicators()
+                        binding.viewPager.visibleIf(true)
                         binding.viewPager.adapter = sliderAdapter
-                        sliderAdapter.replaceData(it.data?.take(sliderItemCount))
+
+                        val sliderList = it.data?.take(sliderItemCount)
+                        addIndicators(sliderList?.size ?: 0)
+                        sliderAdapter.replaceData(sliderList)
                     }
                 }
             }
@@ -129,16 +134,23 @@ class FragmentMain : BaseFragment<FragmentMainBinding, MainVM>() {
 
     private fun setUpComingUiState(loadState: LoadState) {
         when (loadState) {
-            is LoadState.Loading -> {}
+            is LoadState.Loading -> {
+                binding.txtError.visibleIf(false)
+            }
 
             is LoadState.NotLoading -> {
                 binding.rvMovies.visibleIf(true)
                 binding.progressBar.visibleIf(false)
+                binding.txtError.visibleIf(false)
+
             }
 
             is LoadState.Error -> {
                 binding.rvMovies.visibleIf(false)
                 binding.progressBar.visibleIf(false)
+                binding.txtError.visibleIf(true)
+                binding.txtError.text =
+                    loadState.error.localizedMessage ?: getString(R.string.something_went_wrong)
             }
         }
     }
