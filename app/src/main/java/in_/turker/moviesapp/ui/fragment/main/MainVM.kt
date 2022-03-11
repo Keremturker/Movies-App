@@ -7,7 +7,7 @@ import androidx.paging.cachedIn
 import androidx.paging.map
 import dagger.hilt.android.lifecycle.HiltViewModel
 import in_.turker.moviesapp.base.BaseViewModel
-import in_.turker.moviesapp.data.Result
+import in_.turker.moviesapp.data.model.Result
 import in_.turker.moviesapp.data.repository.MovieRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
@@ -23,8 +23,8 @@ class MainVM @Inject constructor(
     private val repository: MovieRepository
 ) : BaseViewModel(app = myApp) {
 
-    fun getNowPlaying(): Flow<PagingData<Result>> {
-        val repoItemsUiStates = repository.getNowPlaying()
+    fun getUpcoming(): Flow<PagingData<Result>> {
+        val repoItemsUiStates = repository.getUpcoming()
             .map { pagingData ->
                 pagingData.map { result -> result }
             }.cachedIn(viewModelScope)

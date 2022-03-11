@@ -2,14 +2,15 @@ package in_.turker.moviesapp.data.pagingdatasource
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
-import in_.turker.moviesapp.data.Result
+import in_.turker.moviesapp.BuildConfig
+import in_.turker.moviesapp.data.model.Result
 import in_.turker.moviesapp.network.MovieService
 
 /**
  * Created by Kerem TÜRKER on 11.03.2022.
  */
 
-class MoviePagingDataSource(
+class UpcomingPagingDataSource(
     private val movieService: MovieService
 ) :
     PagingSource<Int, Result>() {
@@ -17,7 +18,7 @@ class MoviePagingDataSource(
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Result> {
         val page = params.key ?: STARTING_PAGE_INDEX
         return try {
-            val response = movieService.getNowPlaying("4b84b3d6fbe532f6eec2ec640bee1c2a", page)
+            val response = movieService.getUpcoming(BuildConfig.API_KEY, page)
             LoadResult.Page(
                 data = response.results,
                 prevKey = if (page == STARTING_PAGE_INDEX) null else page.minus(1),

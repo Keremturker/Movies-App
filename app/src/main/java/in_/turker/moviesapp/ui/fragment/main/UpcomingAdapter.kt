@@ -4,27 +4,27 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
-import in_.turker.moviesapp.data.Result
-import in_.turker.moviesapp.databinding.ItemNowPlayingBinding
+import in_.turker.moviesapp.data.model.Result
+import in_.turker.moviesapp.databinding.ItemUpcomingBinding
  import javax.inject.Inject
 
 /**
  * Created by Kerem TÜRKER on 11.03.2022.
  */
 
-class NowPlayingAdapter  @Inject constructor() :
-    PagingDataAdapter<Result, NowPlayingViewHolder>(Comparator) {
+class UpcomingAdapter  @Inject constructor() :
+    PagingDataAdapter<Result, UpcomingViewHolder>(Comparator) {
 
-    override fun onBindViewHolder(holder: NowPlayingViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: UpcomingViewHolder, position: Int) {
         getItem(position)?.let { result -> holder.bind(result) }
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NowPlayingViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UpcomingViewHolder {
 
-        val binding = ItemNowPlayingBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding = ItemUpcomingBinding.inflate(LayoutInflater.from(parent.context), parent, false)
 
 
-        return NowPlayingViewHolder(binding)
+        return UpcomingViewHolder(binding)
     }
 
     object Comparator : DiffUtil.ItemCallback<Result>() {
