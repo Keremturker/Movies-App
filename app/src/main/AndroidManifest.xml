@@ -14,7 +14,7 @@
         android:theme="@style/Theme.MoviesApp"
         android:usesCleartextTraffic="true">
         <activity
-            android:name=".ui.SingleActivity"
+            android:name=".ui.activity.SingleActivity"
             android:exported="true"
             android:screenOrientation="portrait">
             <intent-filter>
