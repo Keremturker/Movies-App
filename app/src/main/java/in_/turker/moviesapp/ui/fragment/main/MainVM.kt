@@ -9,8 +9,12 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import in_.turker.moviesapp.base.BaseViewModel
 import in_.turker.moviesapp.data.model.Result
 import in_.turker.moviesapp.data.repository.MovieRepository
+import in_.turker.moviesapp.utils.ApiState
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 /**
@@ -20,14 +24,34 @@ import javax.inject.Inject
 @HiltViewModel
 class MainVM @Inject constructor(
     myApp: Application,
-    private val repository: MovieRepository
+     private val movieRepository: MovieRepository
 ) : BaseViewModel(app = myApp) {
 
+    private val _onNowPlaying = MutableStateFlow<ApiState<List<Result>?>>(ApiState.Empty)
+    val onNowPlaying: StateFlow<ApiState<List<Result>?>> = _onNowPlaying
+
+    init {
+        getNowPlaying()
+    }
+
     fun getUpcoming(): Flow<PagingData<Result>> {
-        val repoItemsUiStates = repository.getUpcoming()
+        val repoItemsUiStates = movieRepository.getUpcoming()
             .map { pagingData ->
                 pagingData.map { result -> result }
             }.cachedIn(viewModelScope)
         return repoItemsUiStates
     }
+
+
+    fun getNowPlaying() = viewModelScope.launch {
+        _onNowPlaying.value = ApiState.Loading
+        movieRepository.getNowPlaying(
+            scope = viewModelScope,
+            onSuccess = {
+                _onNowPlaying.value = ApiState.Success(it)
+            }, onErrorAction = {
+                _onNowPlaying.value = ApiState.Failure(it)
+            })
+    }
+
 }

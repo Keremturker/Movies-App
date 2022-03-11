@@ -21,7 +21,7 @@ interface APIClient {
 }
 
 @Singleton
-class APIClientImpl  @Inject constructor() : APIClient {
+class APIClientImpl @Inject constructor() : APIClient {
 
     override val apiCollect: MovieService by lazy {
         clientCollect.create(MovieService::class.java)
@@ -45,6 +45,7 @@ class APIClientImpl  @Inject constructor() : APIClient {
     private val okHttpClientCollect: OkHttpClient by lazy {
         okHttpClientBuilderCollect.addInterceptor { chain ->
             val builder = chain.request().newBuilder()
+            builder.addHeader("authorization", "Bearer ${BuildConfig.ACCESS_TOKEN}")
             chain.proceed(builder.build())
         }
         okHttpClientBuilderCollect.build()

@@ -8,8 +8,8 @@
 
     <ImageView
         android:id="@+id/imgMoviePhoto"
-        android:layout_width="@dimen/space_large_1"
-        android:layout_height="@dimen/space_large_1"
+        android:layout_width="@dimen/space_large_2"
+        android:layout_height="@dimen/space_large_2"
         android:layout_marginStart="@dimen/space_med"
         android:layout_marginTop="@dimen/space_med"
         android:layout_marginBottom="@dimen/space_med"

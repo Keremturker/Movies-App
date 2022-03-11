@@ -2,4 +2,5 @@
     <string name="app_name">Movies App</string>
     <string name="movie_photo_desc">Movie Image</string>
     <string name="right_arrow_desc">Right Arrow</string>
+    <string name="slider_photo_desc">Slider Image</string>
 </resources>
