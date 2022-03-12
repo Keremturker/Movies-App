@@ -5,13 +5,11 @@ import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import in_.turker.moviesapp.BuildConfig
 import in_.turker.moviesapp.data.model.main.Result
 import in_.turker.moviesapp.databinding.ItemUpcomingBinding
 import in_.turker.moviesapp.utils.DATE_FORMAT_CLIENT
 import in_.turker.moviesapp.utils.DATE_FORMAT_SERVER
 import in_.turker.moviesapp.utils.convertToDateFormat
-import in_.turker.moviesapp.utils.loadImagesWithGlide
 
 /**
  * Created by Kerem TÜRKER on 11.03.2022.
@@ -53,11 +51,11 @@ class UpcomingViewHolder(
 
     fun bind(item: Result) {
         binding.apply {
-            txtDate.text = item.releaseDate.convertToDateFormat(DATE_FORMAT_SERVER, DATE_FORMAT_CLIENT)
-            txtMovieDescription.text = item.overview
-            txtMovieTitle.text = item.title
+            item.releaseDate = item.releaseDate.convertToDateFormat(
+                DATE_FORMAT_SERVER, DATE_FORMAT_CLIENT
+            )
 
-            imgMoviePhoto.loadImagesWithGlide("${BuildConfig.PHOTO_URL}${item.posterPath}")
+            binding.item = item
 
             clParent.setOnClickListener {
                 onClickAction.invoke(item.id)

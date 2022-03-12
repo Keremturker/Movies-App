@@ -2,6 +2,7 @@ package in_.turker.moviesapp.utils
 
 import android.view.View
 import android.widget.ImageView
+import androidx.databinding.BindingAdapter
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
 import com.bumptech.glide.Glide
@@ -12,7 +13,8 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy
  */
 
 
-fun ImageView.loadImagesWithGlide(url: String) {
+@BindingAdapter("loadImage")
+fun ImageView.loadImagesWithGlide(url: String?) {
     Glide.with(this)
         .load(url)
         .centerCrop()

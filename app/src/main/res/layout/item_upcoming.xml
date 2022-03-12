@@ -1,85 +1,98 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/clParent"
-    android:layout_width="match_parent"
-    android:layout_height="136dp">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <ImageView
-        android:id="@+id/imgMoviePhoto"
-        android:layout_width="@dimen/space_large_2"
-        android:layout_height="@dimen/space_large_2"
-        android:layout_marginStart="@dimen/space_med"
-        android:layout_marginTop="@dimen/space_med"
-        android:layout_marginBottom="@dimen/space_med"
-        android:contentDescription="@string/movie_photo_desc"
-        android:scaleType="fitXY"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <data>
+        <variable
+            name="item"
+            type="in_.turker.moviesapp.data.model.main.Result" />
+    </data>
 
-    <TextView
-        android:id="@+id/txtMovieTitle"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/space_small"
-        android:layout_marginTop="@dimen/space_small"
-        android:layout_marginEnd="@dimen/space_small"
-        android:ellipsize="end"
-        android:fontFamily="@font/roboto_bold"
-        android:singleLine="true"
-        android:textColor="@color/text_black"
-        android:textSize="15sp"
-        app:layout_constraintEnd_toStartOf="@+id/imgRightIcon"
-        app:layout_constraintStart_toEndOf="@+id/imgMoviePhoto"
-        app:layout_constraintTop_toTopOf="@+id/imgMoviePhoto" />
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/clParent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-    <TextView
-        android:id="@+id/txtMovieDescription"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/space_small"
-        android:layout_marginEnd="@dimen/space_small"
-        android:ellipsize="end"
-        android:fontFamily="@font/roboto_medium"
-        android:maxLines="2"
-        android:textColor="@color/text_gray"
-        android:textSize="13sp"
-        app:layout_constraintEnd_toStartOf="@+id/imgRightIcon"
-        app:layout_constraintStart_toStartOf="@+id/txtMovieTitle"
-        app:layout_constraintTop_toBottomOf="@+id/txtMovieTitle" />
+        <ImageView
+            android:id="@+id/imgMoviePhoto"
+            loadImage="@{@string/PHOTO_URL +item.posterPath}"
+            android:layout_width="@dimen/space_large_2"
+            android:layout_height="@dimen/space_large_2"
+            android:layout_marginStart="@dimen/space_med"
+            android:layout_marginTop="@dimen/space_med"
+            android:layout_marginBottom="@dimen/space_med"
+            android:contentDescription="@string/movie_photo_desc"
+            android:scaleType="fitXY"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageView
-        android:id="@+id/imgRightIcon"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="@dimen/space_med"
-        android:contentDescription="@string/right_arrow_desc"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_right_arrow"
-        tools:ignore="ImageContrastCheck" />
+        <TextView
+            android:id="@+id/txtMovieTitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@{item.title}"
+            android:layout_marginStart="@dimen/space_small"
+            android:layout_marginTop="@dimen/space_small"
+            android:layout_marginEnd="@dimen/space_small"
+            android:ellipsize="end"
+            android:fontFamily="@font/roboto_bold"
+            android:singleLine="true"
+            android:textColor="@color/text_black"
+            android:textSize="15sp"
+            app:layout_constraintEnd_toStartOf="@+id/imgRightIcon"
+            app:layout_constraintStart_toEndOf="@+id/imgMoviePhoto"
+            app:layout_constraintTop_toTopOf="@+id/imgMoviePhoto" />
 
-    <TextView
-        android:id="@+id/txtDate"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="@dimen/space_large"
-        android:fontFamily="@font/roboto_medium"
-        android:textColor="@color/text_gray"
-        android:textSize="12sp"
-        app:layout_constraintBottom_toBottomOf="@+id/imgMoviePhoto"
-        app:layout_constraintEnd_toEndOf="@+id/imgRightIcon" />
+        <TextView
+            android:id="@+id/txtMovieDescription"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space_small"
+            android:layout_marginEnd="@dimen/space_small"
+            android:text="@{item.overview}"
+            android:ellipsize="end"
+            android:fontFamily="@font/roboto_medium"
+            android:maxLines="2"
+            android:textColor="@color/text_gray"
+            android:textSize="13sp"
+            app:layout_constraintEnd_toStartOf="@+id/imgRightIcon"
+            app:layout_constraintStart_toStartOf="@+id/txtMovieTitle"
+            app:layout_constraintTop_toBottomOf="@+id/txtMovieTitle" />
 
-    <View
-        android:id="@+id/viewDivider"
-        android:layout_width="0dp"
-        android:layout_height="1dp"
-        android:layout_marginHorizontal="@dimen/space_med"
-        android:background="@color/light_gray"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <ImageView
+            android:id="@+id/imgRightIcon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/space_med"
+            android:contentDescription="@string/right_arrow_desc"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_right_arrow"
+            tools:ignore="ImageContrastCheck" />
+
+        <TextView
+            android:text="@{item.releaseDate}"
+            android:id="@+id/txtDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/space_large"
+            android:fontFamily="@font/roboto_medium"
+            android:textColor="@color/text_gray"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="@+id/imgMoviePhoto"
+            app:layout_constraintEnd_toEndOf="@+id/imgRightIcon" />
+
+        <View
+            android:id="@+id/viewDivider"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginHorizontal="@dimen/space_med"
+            android:background="@color/light_gray"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

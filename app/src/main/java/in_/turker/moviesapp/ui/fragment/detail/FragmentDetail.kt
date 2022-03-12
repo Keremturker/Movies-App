@@ -3,7 +3,6 @@ package in_.turker.moviesapp.ui.fragment.detail
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import dagger.hilt.android.AndroidEntryPoint
-import in_.turker.moviesapp.BuildConfig
 import in_.turker.moviesapp.R
 import in_.turker.moviesapp.base.BaseFragment
 import in_.turker.moviesapp.databinding.FragmentDetailBinding
@@ -23,7 +22,6 @@ class FragmentDetail : BaseFragment<FragmentDetailBinding, DetailVM>() {
 
     override fun onFragmentCreated() {
         val movieId = arguments?.getInt(MOVIE_ID) ?: 0
-
         viewModel.getMovieDetail(movieId)
     }
 
@@ -42,8 +40,9 @@ class FragmentDetail : BaseFragment<FragmentDetailBinding, DetailVM>() {
                     is ApiState.Failure -> {
                         binding.progressBar.visibleIf(false)
                         binding.clDetail.visibleIf(false)
-                        binding.txtError.text =
+                        binding.errorText =
                             it.errorMessage ?: getString(R.string.something_went_wrong)
+
                         binding.txtError.visibleIf(true)
                     }
 
@@ -53,15 +52,11 @@ class FragmentDetail : BaseFragment<FragmentDetailBinding, DetailVM>() {
                         binding.clDetail.visibleIf(true)
 
                         binding.apply {
-                            val item = it.data
-                            item?.let { detail ->
-                                imgMoviePhoto.loadImagesWithGlide(BuildConfig.PHOTO_URL + detail.posterPath)
-                                txtMovieStar.text = detail.voteAverage.toString()
-                                txtMovieDate.text = detail.releaseDate.convertToDateFormat(
+                            it.data?.let { detail ->
+                                detail.releaseDate = detail.releaseDate.convertToDateFormat(
                                     DATE_FORMAT_SERVER, DATE_FORMAT_CLIENT
                                 )
-                                txtMovieTitle.text = detail.title
-                                txtMovieDescription.text = detail.overview
+                                binding.item = detail
                             }
                         }
                     }

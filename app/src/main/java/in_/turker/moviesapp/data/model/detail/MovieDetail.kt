@@ -35,7 +35,7 @@ data class MovieDetail(
     @SerializedName("production_countries")
     val productionCountries: List<ProductionCountry>,
     @SerializedName("release_date")
-    val releaseDate: String,
+    var releaseDate: String,
     @SerializedName("revenue")
     val revenue: Int,
     @SerializedName("runtime")

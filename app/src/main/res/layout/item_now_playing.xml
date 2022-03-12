@@ -1,48 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/clParent"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <ImageView
-        android:id="@+id/imgMoviePhoto"
+    <data>
+
+        <variable
+            name="item"
+            type="in_.turker.moviesapp.data.model.main.Result" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/clParent"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:contentDescription="@string/slider_photo_desc"
-        android:scaleType="fitXY"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/txtMovieTitle"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/space_med"
-        android:layout_marginEnd="@dimen/space_med"
-        android:layout_marginBottom="@dimen/space_large_1"
-        android:fontFamily="@font/roboto_bold"
-        android:singleLine="true"
-        android:textColor="@color/white"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="@+id/imgMoviePhoto"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        <ImageView
+            android:id="@+id/imgMoviePhoto"
+            loadImage="@{@string/PHOTO_URL +item.posterPath}"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:contentDescription="@string/slider_photo_desc"
+            android:scaleType="fitXY"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/txtMovieDescription"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/space_small"
-        android:layout_marginEnd="@dimen/space_med"
-        android:ellipsize="end"
-        android:fontFamily="@font/roboto_medium"
-        android:maxLines="2"
-        android:textColor="@color/white"
-        android:textSize="12sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/txtMovieTitle"
-        app:layout_constraintTop_toBottomOf="@+id/txtMovieTitle" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <TextView
+            android:id="@+id/txtMovieTitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/space_med"
+            android:layout_marginEnd="@dimen/space_med"
+            android:layout_marginBottom="@dimen/space_large_1"
+            android:fontFamily="@font/roboto_bold"
+            android:singleLine="true"
+            android:text="@{item.title}"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="@+id/imgMoviePhoto"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/txtMovieDescription"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space_small"
+            android:layout_marginEnd="@dimen/space_med"
+            android:ellipsize="end"
+            android:fontFamily="@font/roboto_medium"
+            android:maxLines="2"
+            android:text="@{item.overview}"
+            android:textColor="@color/white"
+            android:textSize="12sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/txtMovieTitle"
+            app:layout_constraintTop_toBottomOf="@+id/txtMovieTitle" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

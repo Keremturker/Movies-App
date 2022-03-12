@@ -16,7 +16,7 @@ android {
         versionCode 1
         versionName "1.0"
         buildConfigField "String", "BASE_URL", "\"https://api.themoviedb.org/3/\""
-        buildConfigField "String", "PHOTO_URL", "\"https://image.tmdb.org/t/p/original/\""
+        resValue "string", "PHOTO_URL", "\"https://image.tmdb.org/t/p/original/\""
         buildConfigField "String", "ACCESS_TOKEN", "\"eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI0Yjg0YjNkNmZiZTUzMmY2ZWVjMmVjNjQwYmVlMWMyYSIsInN1YiI6IjYyMmI2ZjJjODQ1OTFjMDA2ZTdiNjdlMyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.reEuhBKdT-__pG_yX2JUIANuB-gg75HyX86irSoH7Xs\""
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -37,6 +37,10 @@ android {
 
     buildFeatures {
         viewBinding true
+    }
+
+    dataBinding {
+        enabled = true
     }
 }
 
