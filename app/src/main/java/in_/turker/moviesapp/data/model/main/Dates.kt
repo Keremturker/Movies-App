@@ -1,4 +1,4 @@
-package in_.turker.moviesapp.data.model
+package in_.turker.moviesapp.data.model.main
 
 
 import com.google.gson.annotations.SerializedName

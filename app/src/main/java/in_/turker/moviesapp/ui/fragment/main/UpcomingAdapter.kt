@@ -6,16 +6,15 @@ import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import in_.turker.moviesapp.BuildConfig
-import in_.turker.moviesapp.data.model.Result
+import in_.turker.moviesapp.data.model.main.Result
 import in_.turker.moviesapp.databinding.ItemUpcomingBinding
 import in_.turker.moviesapp.utils.loadImagesWithGlide
-import javax.inject.Inject
 
 /**
  * Created by Kerem TÜRKER on 11.03.2022.
  */
 
-class UpcomingAdapter  @Inject constructor() :
+class UpcomingAdapter(private val onClickAction: ((Int) -> Unit)) :
     PagingDataAdapter<Result, UpcomingViewHolder>(Comparator) {
 
     override fun onBindViewHolder(holder: UpcomingViewHolder, position: Int) {
@@ -23,9 +22,10 @@ class UpcomingAdapter  @Inject constructor() :
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UpcomingViewHolder {
-        val binding = ItemUpcomingBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding =
+            ItemUpcomingBinding.inflate(LayoutInflater.from(parent.context), parent, false)
 
-        return UpcomingViewHolder(binding)
+        return UpcomingViewHolder(binding, onClickAction)
     }
 
     object Comparator : DiffUtil.ItemCallback<Result>() {
@@ -42,7 +42,10 @@ class UpcomingAdapter  @Inject constructor() :
     }
 }
 
-class UpcomingViewHolder(private val binding: ItemUpcomingBinding) :
+class UpcomingViewHolder(
+    private val binding: ItemUpcomingBinding,
+    private val onClickAction: ((Int) -> Unit)
+) :
     RecyclerView.ViewHolder(binding.root) {
 
     fun bind(item: Result) {
@@ -52,6 +55,10 @@ class UpcomingViewHolder(private val binding: ItemUpcomingBinding) :
             txtMovieTitle.text = item.title
 
             imgMoviePhoto.loadImagesWithGlide("${BuildConfig.PHOTO_URL}${item.posterPath}")
+
+            clParent.setOnClickListener {
+                onClickAction.invoke(item.id)
+            }
         }
     }
 }

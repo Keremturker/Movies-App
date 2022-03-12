@@ -1,8 +1,12 @@
 <resources>
     <string name="app_name">Movies App</string>
     <string name="movie_photo_desc">Movie Image</string>
+    <string name="movie_detail_photo_desc">Movie Detail Image</string>
     <string name="right_arrow_desc">Right Arrow</string>
     <string name="slider_photo_desc">Slider Image</string>
+    <string name="star_desc">Star</string>
+    <string name="imdb_desc">IMDB</string>
     <string name="something_went_wrong">Something went wrong.</string>
+    <string name="star_text">/10</string>
 
 </resources>

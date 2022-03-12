@@ -4,7 +4,8 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import in_.turker.moviesapp.base.BaseRepository
-import in_.turker.moviesapp.data.model.Result
+import in_.turker.moviesapp.data.model.detail.MovieDetail
+import in_.turker.moviesapp.data.model.main.Result
 import in_.turker.moviesapp.data.pagingdatasource.UpcomingPagingDataSource
 import in_.turker.moviesapp.network.APIClientImpl
 import kotlinx.coroutines.CoroutineScope
@@ -27,6 +28,23 @@ constructor(private val apiServiceImpl: APIClientImpl) : BaseRepository() {
             client = { apiServiceImpl.apiCollect.getNowPlaying() },
             onSuccess = {
                 onSuccess(it.results)
+            },
+            onErrorAction = {
+                onErrorAction(it)
+            }
+        )
+
+    suspend fun getMovieDetail(
+        scope: CoroutineScope,
+        movieId: Int,
+        onSuccess: ((MovieDetail?) -> Unit),
+        onErrorAction: ((String?) -> Unit)
+    ) =
+        sendRequest(
+            scope = scope,
+            client = { apiServiceImpl.apiCollect.getMovieDetail(movieId) },
+            onSuccess = {
+                onSuccess(it)
             },
             onErrorAction = {
                 onErrorAction(it)

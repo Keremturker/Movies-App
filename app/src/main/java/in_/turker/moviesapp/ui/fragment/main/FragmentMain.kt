@@ -11,7 +11,7 @@ import com.google.android.material.appbar.AppBarLayout
 import dagger.hilt.android.AndroidEntryPoint
 import in_.turker.moviesapp.R
 import in_.turker.moviesapp.base.BaseFragment
-import in_.turker.moviesapp.data.model.Result
+import in_.turker.moviesapp.data.model.main.Result
 import in_.turker.moviesapp.databinding.FragmentMainBinding
 import in_.turker.moviesapp.utils.ApiState
 import in_.turker.moviesapp.utils.collect
@@ -20,7 +20,6 @@ import in_.turker.moviesapp.utils.visibleIf
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.distinctUntilChangedBy
 import kotlinx.coroutines.flow.map
-import javax.inject.Inject
 
 /**
  * Created by Kerem TÜRKER on 11.03.2022.
@@ -32,16 +31,15 @@ class FragmentMain : BaseFragment<FragmentMainBinding, MainVM>() {
 
     override fun getViewBinding() = FragmentMainBinding.inflate(layoutInflater)
 
-    @Inject
-    lateinit var upcomingAdapter: UpcomingAdapter
-    private val sliderAdapter = SliderAdapter()
+    private var upcomingAdapter = UpcomingAdapter(::onClickAction)
+    private val sliderAdapter = SliderAdapter(::onClickAction)
     private val sliderItemCount = 5
 
     override fun onFragmentCreated() {
         prepareRecyclerView()
         setListener()
         collectLast(viewModel.getUpcoming(), ::setMovie)
-
+        viewModel.getNowPlaying()
 
     }
 
@@ -157,5 +155,9 @@ class FragmentMain : BaseFragment<FragmentMainBinding, MainVM>() {
 
     private suspend fun setMovie(itemsPagingData: PagingData<Result>) {
         upcomingAdapter.submitData(itemsPagingData)
+    }
+
+    private fun onClickAction(movieId: Int) {
+        viewModel.goToDetail(movieId)
     }
 }

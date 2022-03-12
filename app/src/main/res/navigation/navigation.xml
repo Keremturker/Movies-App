@@ -15,4 +15,7 @@
         android:name="in_.turker.moviesapp.ui.fragment.detail.FragmentDetail"
         android:label="FragmentDetail"
         tools:layout="@layout/fragment_detail" />
+    <action
+        android:id="@+id/action_global_fragmentDetail"
+        app:destination="@id/fragmentDetail" />
 </navigation>

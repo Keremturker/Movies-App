@@ -2,7 +2,7 @@ package in_.turker.moviesapp.data.pagingdatasource
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
-import in_.turker.moviesapp.data.model.Result
+import in_.turker.moviesapp.data.model.main.Result
 import in_.turker.moviesapp.network.MovieService
 
 /**
