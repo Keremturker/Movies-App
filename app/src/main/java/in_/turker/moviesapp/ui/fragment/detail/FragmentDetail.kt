@@ -7,10 +7,7 @@ import in_.turker.moviesapp.BuildConfig
 import in_.turker.moviesapp.R
 import in_.turker.moviesapp.base.BaseFragment
 import in_.turker.moviesapp.databinding.FragmentDetailBinding
-import in_.turker.moviesapp.utils.ApiState
-import in_.turker.moviesapp.utils.MOVIE_ID
-import in_.turker.moviesapp.utils.loadImagesWithGlide
-import in_.turker.moviesapp.utils.visibleIf
+import in_.turker.moviesapp.utils.*
 import kotlinx.coroutines.flow.collect
 
 /**
@@ -60,7 +57,9 @@ class FragmentDetail : BaseFragment<FragmentDetailBinding, DetailVM>() {
                             item?.let { detail ->
                                 imgMoviePhoto.loadImagesWithGlide(BuildConfig.PHOTO_URL + detail.posterPath)
                                 txtMovieStar.text = detail.voteAverage.toString()
-                                txtMovieDate.text = detail.releaseDate
+                                txtMovieDate.text = detail.releaseDate.convertToDateFormat(
+                                    DATE_FORMAT_SERVER, DATE_FORMAT_CLIENT
+                                )
                                 txtMovieTitle.text = detail.title
                                 txtMovieDescription.text = detail.overview
                             }

@@ -5,3 +5,5 @@ package in_.turker.moviesapp.utils
  */
 
 const val MOVIE_ID = "MOVIE_ID"
+const val DATE_FORMAT_SERVER = "yyyy-MM-dd"
+const val DATE_FORMAT_CLIENT = "dd.MM.yyyy"
